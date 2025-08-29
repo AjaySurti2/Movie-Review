@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -21,10 +20,24 @@ const navItems = [
   { href: '/dashboard/preferences', label: 'Preferences', icon: Settings },
 ]
 
+const getPageTitle = (pathname: string) => {
+  if (pathname === '/dashboard') return 'Home'
+  if (pathname === '/dashboard/preferences') return 'Preferences'
+  if (pathname.startsWith('/dashboard/reviews/')) return 'Movie Review'
+  return 'Dashboard'
+}
+
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const { data: session } = useSession()
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)
+  
+  const pageTitle = getPageTitle(pathname)
+
+  // Demo user data for now
+  const demoUser = {
+    name: 'Demo User',
+    image: ''
+  }
 
   const SideNav = ({ isMobile = false }) => (
     <nav className={`flex flex-col h-full bg-[var(--panel)] ${isMobile ? 'p-4' : 'p-6'}`}>
@@ -59,11 +72,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       
       <Button
         variant="ghost"
-        onClick={() => signOut()}
+        onClick={() => window.location.href = '/'}
         className="w-full justify-start gap-3 h-12 text-[var(--text-muted)] hover:text-white hover:bg-white/10"
       >
         <LogOut className="h-5 w-5" />
-        {(!isCollapsed || isMobile) && 'Sign out'}
+        {(!isCollapsed || isMobile) && 'Back to Home'}
       </Button>
     </nav>
   )
@@ -95,16 +108,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
         <header className="flex items-center justify-between p-4 md:p-6 bg-[var(--panel)]/50 backdrop-blur-sm border-b border-[var(--border)]">
-          <div className="md:hidden" /> {/* Spacer for mobile menu button */}
-          <h1 className="text-xl font-bold">Dashboard</h1>
+          <div className="md:hidden" />
+          <div className="flex items-center gap-4">
+            <h1 className="text-xl font-bold">{pageTitle}</h1>
+            <Link href="/" className="text-sm text-[var(--text-muted)] hover:text-white">
+              ← Back to Home
+            </Link>
+          </div>
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src={session?.user?.image || ''} />
+                  <AvatarImage src={demoUser.image || ''} />
                   <AvatarFallback className="bg-[var(--accent)] text-white">
-                    {session?.user?.name?.charAt(0) || 'U'}
+                    {demoUser.name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
               </Button>
@@ -114,9 +132,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <User className="mr-2 h-4 w-4" />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => signOut()}>
+              <DropdownMenuItem onClick={() => window.location.href = '/'}>
                 <LogOut className="mr-2 h-4 w-4" />
-                Sign out
+                Back to Home
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
-// Force recompile - Preferences page for dashboard
+// Preferences page for dashboard
 const genres = [
   'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary',
   'Drama', 'Family', 'Fantasy', 'Horror', 'Music', 'Mystery',

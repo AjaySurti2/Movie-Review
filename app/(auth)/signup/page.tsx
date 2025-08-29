@@ -22,24 +22,10 @@ export default function SignUpPage() {
     setIsLoading(true)
     setError('')
 
-    try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
-      })
-
-      if (response.ok) {
-        router.push('/login?message=Account created successfully')
-      } else {
-        const data = await response.json()
-        setError(data.message || 'An error occurred')
-      }
-    } catch (error) {
-      setError('An error occurred. Please try again.')
-    } finally {
-      setIsLoading(false)
-    }
+    // For demo purposes, just redirect to login
+    router.push('/login?message=Account created successfully')
+    
+    setIsLoading(false)
   }
 
   return (
@@ -116,6 +102,9 @@ export default function SignUpPage() {
               Sign in
             </Link>
           </div>
+          <Link href="/" className="text-[var(--text-muted)] hover:text-white transition-colors block mt-4">
+            ← Back to Home
+          </Link>
         </div>
       </Card>
     </div>

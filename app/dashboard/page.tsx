@@ -1,6 +1,8 @@
 import { HeroCarousel } from '@/components/home/hero-carousel'
 import { HorizontalCarousel } from '@/components/movies/horizontal-carousel'
 import Image from 'next/image'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 // Mock data - in production this would come from your API
 const heroMovies = [
@@ -170,6 +172,23 @@ export default function DashboardPage() {
         <HorizontalCarousel title="Action Movies" movies={trendingMovies} />
         <HorizontalCarousel title="Comedy Movies" movies={topPicks} />
         <HorizontalCarousel title="Drama Movies" movies={trendingMovies.slice().reverse()} />
+        
+        {/* Demo Navigation */}
+        <div className="netflix-card p-6 text-center">
+          <h2 className="text-2xl font-bold mb-4">Demo Navigation</h2>
+          <div className="flex gap-4 justify-center">
+            <Link href="/dashboard/reviews/1">
+              <Button className="bg-[var(--accent)] hover:bg-[var(--accent-2)] text-white">
+                View Movie Review (Dune)
+              </Button>
+            </Link>
+            <Link href="/dashboard/preferences">
+              <Button variant="outline" className="border-[var(--border)] text-[var(--text-muted)] hover:text-white">
+                User Preferences
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   )

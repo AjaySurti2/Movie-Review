@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Play, Plus, Info } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { RatingBadge } from '@/components/ui/rating-badge'

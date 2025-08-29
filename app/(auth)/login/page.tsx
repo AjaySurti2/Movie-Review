@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -22,23 +21,15 @@ export default function LoginPage() {
     setIsLoading(true)
     setError('')
 
-    try {
-      const result = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-      })
-
-      if (result?.error) {
-        setError('Invalid email or password')
-      } else {
-        router.push('/dashboard')
-      }
-    } catch (error) {
-      setError('An error occurred. Please try again.')
-    } finally {
-      setIsLoading(false)
+    // Demo login logic - accept demo credentials
+    if (email === 'demo@moviereview.com' && password === 'demo123') {
+      // For demo purposes, just redirect to dashboard
+      router.push('/dashboard')
+    } else {
+      setError('Please use demo credentials: demo@moviereview.com / demo123')
     }
+    
+    setIsLoading(false)
   }
 
   return (
@@ -106,6 +97,9 @@ export default function LoginPage() {
               Sign up now
             </Link>
           </div>
+          <Link href="/" className="text-[var(--text-muted)] hover:text-white transition-colors block">
+            ← Back to Home
+          </Link>
         </div>
 
         {/* Demo Credentials */}

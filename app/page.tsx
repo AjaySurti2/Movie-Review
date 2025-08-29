@@ -77,6 +77,28 @@ export default function LandingPage() {
           <p className="text-[var(--text-muted)] mt-4">
             © 2025 MovieReview. All rights reserved.
           </p>
+          
+          {/* Demo Navigation */}
+          <div className="mt-8 p-6 bg-[var(--panel-dark)] rounded-lg max-w-md mx-auto">
+            <h3 className="text-lg font-semibold mb-4">Demo Navigation</h3>
+            <div className="space-y-3">
+              <Link href="/login">
+                <Button variant="outline" className="w-full border-[var(--border)] text-[var(--text-muted)] hover:text-white">
+                  Login Page
+                </Button>
+              </Link>
+              <Link href="/signup">
+                <Button variant="outline" className="w-full border-[var(--border)] text-[var(--text-muted)] hover:text-white">
+                  Signup Page
+                </Button>
+              </Link>
+              <Link href="/dashboard">
+                <Button className="w-full bg-[var(--accent)] hover:bg-[var(--accent-2)] text-white">
+                  Dashboard (Demo)
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

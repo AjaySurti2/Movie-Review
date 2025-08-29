@@ -1,22 +1,10 @@
-import { withAuth } from "next-auth/middleware"
+// Temporarily disable middleware for demo purposes
+// Will be re-enabled when authentication is properly implemented
 
-export default withAuth(
-  function middleware(req) {
-    // Add any middleware logic here
-  },
-  {
-    callbacks: {
-      authorized: ({ token, req }) => {
-        const { pathname } = req.nextUrl
-        if (pathname.startsWith('/dashboard')) {
-          return !!token
-        }
-        return true
-      },
-    },
-  }
-)
+export function middleware() {
+  // No middleware logic for demo
+}
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/preferences/:path*', '/reviews/:path*']
+  matcher: []
 }
