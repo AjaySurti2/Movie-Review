@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #141414;
+  --panel: #181818;
+  --panel-dark: #0a0a0a;
+  --text: #ffffff;
+  --text-muted: #b3b3b3;
+  --text-muted-2: #999999;
+  --accent: #E50914;
+  --accent-2: #B81D24;
+  --border: rgba(255, 255, 255, 0.12);
+  --success: #46d369;
+  --warning: #f5c518;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[var(--bg)] text-[var(--text)] font-sans;
+    font-family: var(--font-sans);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  .hero-text {
+    @apply text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter;
+  }
+  
+  .netflix-card {
+    @apply bg-[var(--panel)] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,.35)];
+  }
+  
+  .netflix-hover {
+    @apply transition-all duration-200 hover:scale-105;
+  }
+  
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg)];
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--panel);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted-2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

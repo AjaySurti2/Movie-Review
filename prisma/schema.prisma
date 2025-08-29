@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  reviews      Review[]
+  preferences  Preference?
+}
+
+model Movie {
+  id               String    @id @default(cuid())
+  title            String
+  year             Int
+  runtime          Int
+  genres           String    // JSON array
+  language         String
+  backdropUrl      String
+  posterUrl        String
+  trailerYoutubeId String?
+  rating           Float
+  overview         String
+  cast             String    // JSON array
+  recommendedIds   String    // JSON array
+  createdAt        DateTime  @default(now())
+  reviews          Review[]
+  ottAvailability  OttAvailability[]
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  movieId   String
+  userId    String
+  rating    Int      // 1-5 stars
+  text      String
+  sentiment String   // 'positive', 'mixed', 'negative'
+  createdAt DateTime @default(now())
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model OttAvailability {
+  id      String @id @default(cuid())
+  movieId String
+  service String
+  regions String // JSON array
+  movie   Movie  @relation(fields: [movieId], references: [id])
+}
+
+model Preference {
+  id          String @id @default(cuid())
+  userId      String @unique
+  genres      String // JSON array
+  languages   String // JSON array
+  regions     String // JSON array
+  ottServices String // JSON array
+  user        User   @relation(fields: [userId], references: [id])
+}
